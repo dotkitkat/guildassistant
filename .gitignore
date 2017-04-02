@@ -15,3 +15,6 @@ azure.sqlite3
 # IDEs
 .vscode/
 .idea/
+
+# macOS problems
+.DS_Store

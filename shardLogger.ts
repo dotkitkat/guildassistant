@@ -4,6 +4,6 @@ module.exports = class shardLogger {
     }
 
     static error(toLog: string, shardId: number) {
-        console.log(`[Shard ${shardId}] [Error] ${toLog}`);
+        console.error(`[Shard ${shardId}] [Error] ${toLog}`);
     }
 };

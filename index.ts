@@ -22,7 +22,8 @@ console.log(
 bootloaderLog("Starting Sharding Manager....");
 
 
-var total_shards = 3;
+// Change this to an integer if you want custom shards.
+var total_shards = null;
 
 var sharder: discord.ShardingManager;
 

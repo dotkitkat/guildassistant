@@ -7,7 +7,8 @@ module.exports = class OTPCommand extends Command {
             name: 'otp',
             description: 'One True Pairing.',
             memberName: 'otp',
-            group: 'fun'
+            group: 'fun',
+            guildOnly: true
         })
     }
 

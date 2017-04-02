@@ -2,6 +2,9 @@ const secret = require('./config.json');
 const express = require('express');
 import discord = require('discord.js');
 const pckg_inf = require("./package.json");
+const logger = require('./shardLogger.js');
+import {Shard} from "discord.js";
+const messageRecieving = require('./sharderMessageReciever.js');
 
 function bootloaderLog(toLog: string) {
     console.log(`[Azure Bootloader] ${toLog}`);
@@ -66,4 +69,22 @@ masterServer.listen(secret.masterServerPort);
 
 sharder.on('launch', shard => shardManagerLog(`Launching shard ${shard.id}. Total shards launched: ${sharder.shards.size}. Shards remaining: ${sharder.totalShards - sharder.shards.size}`));
 
-sharder.spawn(this.totalShards);
+messageRecieving(sharder, function (sender: Shard, message) {
+    if (message.EVENT === "CONNECTION_SUCCESS") {
+        logger.log("Online.", sender.id)
+    }
+    /*
+     All current events:
+     SHARD_API_LISTENING
+     CONNECTION_SUCCESS
+     SHARD_CREATE
+     DATABASE_CONFIGURED
+     */
+    /*else if (message.EVENT === "SHARD_API_LISTENING") {
+     logger.log("API listening at " + message.DATA.PORT, sender.id);
+     }*/
+});
+
+sharder.spawn(this.totalShards).catch(function (err) {
+    shardManagerLog("[Error] " + err);
+});

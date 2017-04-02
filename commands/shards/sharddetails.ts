@@ -12,7 +12,7 @@ module.exports = class ShardDetailsCommand extends Command {
                 {
                     key: "targetShard",
                     type: 'integer',
-                    prompt: 'What shard would you like information for?'
+                    prompt: 'What shard number would you like information for?'
                 }
             ]
         })

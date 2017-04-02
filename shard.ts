@@ -20,13 +20,16 @@ const client: commando.CommandoClient = new commando.CommandoClient({
 const shardUtil: discord.ShardClientUtil = new discord.ShardClientUtil(client);
 const shardId = shardUtil.id;
 
-logger.log("Starting Azure Shard...", shardId);
+process.send({
+    "EVENT": "SHARD_CREATE"
+});
 
 // Configure database
 client.setProvider(sqlite.open(path.join(__dirname, 'azure.sqlite3')).then(db => new commando.SQLiteProvider(db)))
     .then(function () {
-        logger.log("Database configured.", shardId);
-        logger.log("Ready.", shardId)
+        process.send({
+            "EVENT": "DATABASE_CONFIGURED"
+        });
     })
     .catch(console.error);
 
@@ -115,6 +118,14 @@ client.login(process.argv[4]).then(function () {
         });
     }, 10000);
     serv.listen(secret.shardServersBasePort + client.shard.id, function () {
-        logger.log("Azure API (Shard " + client.shard.id + ") listening on port " + (secret.shardServersBasePort + client.shard.id) + ".", client.shard.id);
+        process.send({
+            "EVENT": "SHARD_API_LISTENING",
+            "DATA": {
+                "PORT": secret.shardServersBasePort + client.shard.id
+            }
+        });
+    });
+    process.send({
+        "EVENT": "CONNECTION_SUCCESS"
     });
 });

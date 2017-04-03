@@ -1,5 +1,6 @@
 import {Command, CommandMessage, CommandoClient} from "discord.js-commando";
 import {Guild, Message, VoiceConnection} from "discord.js";
+import {isUndefined} from "util";
 const ytdl = require('ytdl-core');
 const discord = require('discord.js');
 const azureLog = require('../../shardLogger.js');
@@ -24,6 +25,9 @@ module.exports = class PlayCommand extends Command {
     async run(message: CommandMessage, args): Promise<any> {
         var client = this.client;
         var chan = message.member.voiceChannel;
+        if (isUndefined(chan)) {
+            return message.reply("You're not in a voice channel! :anger:")
+        }
         chan.join().then(function (vc_con: VoiceConnection) {
             var audio_stream = ytdl(args.video);
             var vc_handler = vc_con.playStream(audio_stream);

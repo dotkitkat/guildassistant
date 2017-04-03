@@ -6,6 +6,7 @@ const discord = require("discord.js");
 const pckg_inf = require("./package.json");
 const logger = require('./shardLogger.js');
 const messageRecieving = require('./sharderMessageReciever.js');
+var keymetrics = require('pmx').probe();
 function bootloaderLog(toLog) {
     console.log(`[Azure Bootloader] ${toLog}`);
 }
@@ -58,6 +59,12 @@ masterServer.get('/shards', function (req, res) {
 shardManagerLog("Global API now listening on port " + secret.masterServerPort + ".");
 masterServer.listen(secret.masterServerPort);
 sharder.on('launch', shard => shardManagerLog(`Launching shard ${shard.id}. ${(sharder.totalShards - sharder.shards.size) == 0 ? "All shards launched." : `Total shards launched: ${sharder.shards.size}. Shards remaining: ${sharder.totalShards - sharder.shards.size}`}`));
+var totalShardsKeymetrics = keymetrics.metric({
+    name: 'Shards Online',
+    value: function () {
+        return sharder.shards.size;
+    }
+});
 messageRecieving(sharder, function (sender, message) {
     if (message.EVENT === "CONNECTION_SUCCESS") {
         logger.log("Online. API listening on " + message.DATA.PORT, sender.id);

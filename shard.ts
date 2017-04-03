@@ -119,13 +119,10 @@ client.login(process.argv[4]).then(function () {
     }, 10000);
     serv.listen(secret.shardServersBasePort + client.shard.id, function () {
         process.send({
-            "EVENT": "SHARD_API_LISTENING",
+            "EVENT": "CONNECTION_SUCCESS",
             "DATA": {
                 "PORT": secret.shardServersBasePort + client.shard.id
             }
         });
-    });
-    process.send({
-        "EVENT": "CONNECTION_SUCCESS"
     });
 });

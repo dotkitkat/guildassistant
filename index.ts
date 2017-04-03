@@ -67,11 +67,11 @@ masterServer.get('/shards', function (req, res) {
 shardManagerLog("Global API now listening on port " + secret.masterServerPort + ".");
 masterServer.listen(secret.masterServerPort);
 
-sharder.on('launch', shard => shardManagerLog(`Launching shard ${shard.id}. Total shards launched: ${sharder.shards.size}. Shards remaining: ${sharder.totalShards - sharder.shards.size}`));
+sharder.on('launch', shard => shardManagerLog(`Launching shard ${shard.id}. ${(sharder.totalShards - sharder.shards.size) == 0 ? "All shards launched." : `Total shards launched: ${sharder.shards.size}. Shards remaining: ${sharder.totalShards - sharder.shards.size}`}`));
 
 messageRecieving(sharder, function (sender: Shard, message) {
     if (message.EVENT === "CONNECTION_SUCCESS") {
-        logger.log("Online.", sender.id)
+        logger.log("Online. API listening on " + message.DATA.PORT, sender.id)
     }
     /*
      All current events:

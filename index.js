@@ -43,7 +43,8 @@ masterServer.get('/shards', function (req, res) {
         "global": {
             "version": pckg_inf.version,
             "author": pckg_inf.author,
-            "shard_count": sharder.totalShards
+            "shard_count": sharder.totalShards,
+            "shards_online": sharder.shards.size
         },
         "allShards": []
     };

@@ -9,9 +9,6 @@ typings/
 config.json
 azure.sqlite3
 
-# js build files
-*.js
-
 # IDEs
 .vscode/
 .idea/

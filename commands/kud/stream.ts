@@ -13,32 +13,32 @@ module.exports = class StreamCreateCommand extends commando.Command {
             args: [
                 {
                     key: 'rabbitLink',
-                    prompt: 'What is the stream link? (i.e Rabb.it)',
+                    prompt: 'what is the stream link? (i.e Rabb.it)',
                     type: 'string'
                 },
                 {
                     key: 'streamLeader',
-                    prompt: 'Who is the stream coordinator?',
+                    prompt: 'who is the stream coordinator?',
                     type: 'member'
                 },
                 {
                     key: 'streamName',
-                    prompt: "What is the name of the anime/movie being streamed? (Used as a backup in case AniList doesn't work)",
+                    prompt: "what is the name of the anime/movie being streamed? (Used as a backup in case AniList doesn't work)",
                     type: 'string'
                 },
                 {
                     key: 'streamSource',
-                    prompt: 'What is the source of the stream? (Use AniList for anime data)',
+                    prompt: 'what is the source of the stream? (Use AniList for anime data)',
                     type: 'string'
                 },
                 {
                     key: 'tagEveryone',
-                    prompt: 'Would you like to tag everyone?',
+                    prompt: 'would you like to tag everyone?',
                     type: 'boolean'
                 },
                 {
                     key: 'movieStartTime',
-                    prompt: 'How many minutes until the stream starts?',
+                    prompt: 'how many minutes until the stream starts?',
                     type: 'integer'
                 }
             ]

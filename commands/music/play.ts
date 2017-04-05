@@ -16,7 +16,7 @@ module.exports = class PlayCommand extends Command {
                 {
                     key: 'video',
                     type: 'string',
-                    prompt: 'What video would you like to play?'
+                    prompt: 'what video would you like to play?'
                 }
             ]
         })

@@ -14,7 +14,7 @@ module.exports = class UserInfoCommand extends commando.Command {
                 {
                     type: 'member',
                     key: 'target',
-                    prompt: 'Who would you like to get information for?'
+                    prompt: 'who would you like to get information for?'
                 }
             ],
             guildOnly: true

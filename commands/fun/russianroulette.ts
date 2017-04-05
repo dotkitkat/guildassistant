@@ -1,4 +1,4 @@
-import {Command, CommandoClient} from "discord.js-commando";
+import {Command, CommandoClient, CommandMessage} from "discord.js-commando";
 
 module.exports = class RRCommand extends Command {
     constructor(client: CommandoClient) {
@@ -17,7 +17,7 @@ module.exports = class RRCommand extends Command {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-    async run(message, args) {
+    async run(message: CommandMessage, args) {
         const myint = this.getRandomInt(1, 7);
         if (myint == 6) {
             return message.reply(":skull_crossbones: You died.")

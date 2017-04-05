@@ -17,6 +17,9 @@ module.exports = class ShardsCommand extends Command {
     }
 
     async run(message, args): Promise<any> {
+        if (this.client.shard === null) {
+            return message.reply("this client is running in development mode, so sharding is disabled.");
+        }
         const client = this.client;
         this.client.shard.fetchClientValues("guilds.size").then(function (results: Array<number>) {
             var processed = 0;

@@ -1,7 +1,6 @@
 const secret = require('./config.json');
 const express = require('express');
 import discord = require('discord.js');
-const pckg_inf = require("./package.json");
 const logger = require('./shardLogger.js');
 import { Shard } from "discord.js";
 const messageRecieving = require('./sharderMessageReciever.js');
@@ -45,8 +44,6 @@ if (!devEnvironment) {
     master.get('/shards', function (req, res) {
         var shards = {
             "global": {
-                "version": pckg_inf.version,
-                "author": pckg_inf.author,
                 "shard_count": sharder.totalShards,
                 "shards_online": sharder.shards.size
             },

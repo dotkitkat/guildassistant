@@ -1,4 +1,4 @@
-import {Collection, Guild, RichEmbed, Shard, ShardingManager, VoiceConnection} from "discord.js";
+import {Collection, Guild, RichEmbed, Shard, ShardingManager, VoiceConnection, Message} from "discord.js";
 import {Command, CommandMessage, CommandoClient} from "discord.js-commando";
 
 module.exports = class ShardDetailsCommand extends Command {
@@ -12,10 +12,14 @@ module.exports = class ShardDetailsCommand extends Command {
                 {
                     key: "targetShard",
                     type: 'integer',
-                    prompt: 'What shard number would you like information for?'
+                    prompt: 'what shard number would you like information for?'
                 }
             ]
         })
+    }
+
+    isUsable(message: Message): boolean {
+        return !(this.client.shard === null);
     }
 
     hasPermission(message: CommandMessage): boolean {
@@ -23,12 +27,15 @@ module.exports = class ShardDetailsCommand extends Command {
     }
 
     async run(message, args) {
+        if (this.client.shard === null) {
+            return message.reply("this client is running in development mode, so sharding is disabled.");
+        }
         var client = this.client;
         var embed: RichEmbed = new RichEmbed();
         var newsv = args.targetShard - 1;
         embed.setTitle("Details for Shard " + args.targetShard);
         if (args.targetShard > client.shard.count || args.targetShard < 0) {
-            return message.reply("Invalid shard! :anger:")
+            return message.reply("invalid shard! :anger:")
         }
         else {
             var guilds = client.shard.fetchClientValues("guilds.size").then(function (response: Array<number>) {

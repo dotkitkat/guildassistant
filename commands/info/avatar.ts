@@ -10,11 +10,12 @@ module.exports = class AvatarCommand extends commando.Command {
             description: "Gets an avatar for a user.",
             args: [
                 {
-                    prompt: "What user would you like to get an avatar for?",
+                    prompt: "what user would you like to get an avatar for?",
                     key: 'target',
                     type: 'member'
                 }
-            ]
+            ],
+            guildOnly: true
         })
     }
 

@@ -23,3 +23,4 @@ module.exports = class OTPCommand extends discord_js_commando_1.Command {
         return message.reply(":heart_decoration: **" + guild.members.array()[guildTarget].displayName + "** x **" + guild.members.array()[guildTarget2].displayName + "** :heart_decoration:");
     }
 };
+//# sourceMappingURL=otp.js.map

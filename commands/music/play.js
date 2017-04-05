@@ -40,3 +40,4 @@ module.exports = class PlayCommand extends discord_js_commando_1.Command {
         });
     }
 };
+//# sourceMappingURL=play.js.map

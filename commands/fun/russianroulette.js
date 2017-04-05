@@ -26,3 +26,4 @@ module.exports = class RRCommand extends discord_js_commando_1.Command {
         }
     }
 };
+//# sourceMappingURL=russianroulette.js.map

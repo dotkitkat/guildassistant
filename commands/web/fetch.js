@@ -35,3 +35,4 @@ module.exports = class FetchCommand extends commando.Command {
         });
     }
 };
+//# sourceMappingURL=fetch.js.map

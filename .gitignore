@@ -4,6 +4,8 @@ typings/
 .eslintcache
 .yarn-integrity
 .env
+.map
+.js.map
 
 # secret
 config.json

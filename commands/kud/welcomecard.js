@@ -39,3 +39,4 @@ module.exports = class welcomeCardTestCommand extends discord_js_commando_1.Comm
         });
     }
 };
+//# sourceMappingURL=welcomecard.js.map

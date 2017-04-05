@@ -43,3 +43,4 @@ module.exports = class UserInfoCommand extends commando.Command {
         return message.replyEmbed(emb);
     }
 };
+//# sourceMappingURL=userinfo.js.map

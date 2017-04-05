@@ -81,3 +81,4 @@ module.exports = class StreamCreateCommand extends commando.Command {
         });
     }
 };
+//# sourceMappingURL=stream.js.map

@@ -41,3 +41,4 @@ module.exports = class ShardsCommand extends discord_js_commando_1.Command {
         });
     }
 };
+//# sourceMappingURL=shards.js.map

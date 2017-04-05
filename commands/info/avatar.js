@@ -27,3 +27,4 @@ module.exports = class AvatarCommand extends commando.Command {
         return chan.sendEmbed(emb);
     }
 };
+//# sourceMappingURL=avatar.js.map

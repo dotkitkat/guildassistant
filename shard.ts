@@ -51,6 +51,8 @@ client.registry
 // No custom events (yet)
 
 // Configure shard API (if not in a development environment)
+var token;
+var finalCallback;
 if (!secret['devEnvironment']) {
     var serv = express();
     serv.use(bodyParser.json());
@@ -65,7 +67,6 @@ if (!secret['devEnvironment']) {
             })
         });
     });
-
 
     serv.post('/set-username', function (req, res) {
         client.user.setUsername(req.body.username).then(function () {
@@ -84,10 +85,6 @@ if (!secret['devEnvironment']) {
         res.send(info)
     });
 
-    serv.get('/status', function (req, res) {
-        res.send('under_construction');
-    });
-
     serv.get('/private-info', function (req, res) {
         if (req.headers["auth"] != secret.authToken) {
             res.send({
@@ -104,34 +101,11 @@ if (!secret['devEnvironment']) {
             });
         }
     });
-}
-else {
-    var serv = undefined;
-}
 
-// Login
-client.login(function () {
-    if (!secret['devEnvironment']) {
-        return process.argv[4];
-    }
-    else {
-        return secret.authToken;
-    }
-}()).then(function () {
-    client.setProvider(sqlite.open(path.join(__dirname, 'azureDatabase.sqlite3')).then(db => new commando.SQLiteProvider(db)).catch(reason => logger.shardError(reason, client.shard.id)));
-    if (!secret["devEnvironment"]) {
+    token = process.argv[4];
+    finalCallback = function () {
         setInterval(function () {
-            client.shard.fetchClientValues("guilds.size").then(function (response) {
-                var proc = 0;
-                var itemsProc = 0;
-                response.forEach(function (item, index, arr) {
-                    proc = proc + item;
-                    itemsProc++;
-                    if (itemsProc == arr.length) {
-                        client.user.setGame(`[Shard ${client.shard.id + 1}/${client.shard.count}`).catch(function () { });
-                    }
-                })
-            })
+            client.user.setGame(`[Shard ${client.shard.id + 1}/${client.shard.count}`).catch(function () { });
         }, 10000);
         serv.listen(secret.shardServersBasePort + client.shard.id, function () {
             process.send({
@@ -142,4 +116,14 @@ client.login(function () {
             });
         });
     }
-});
+}
+else {
+    var serv = undefined;
+    token = secret.authToken;
+    finalCallback = function () {
+        logger.shardLog("Online.", undefined);
+    }
+}
+
+// Login
+client.login(token).then(function () { finalCallback(); });

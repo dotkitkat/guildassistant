@@ -6,14 +6,14 @@ import { Shard } from "discord.js";
 const messageRecieving = require('./sharderMessageReciever.js');
 var keymetrics = require('pmx').probe();
 
-console.log(
+/*console.log(
     "  ____  _____  __ __  ____     ___\n" +
     " /    T|     T|  T  T|    \   /  _]\n" +
     "Y  o  |l__/  ||  |  ||  D  ) /  [_\n" +
     "|     ||   __j|  |  ||    / Y    _]\n" +
     "|  _  ||  /  ||  :  ||    \ |   [_\n" +
     "|  |  ||     |l     ||  .  Y|     T\n" +
-    "l__j__jl_____j \__,_jl__j\_jl_____j\n");
+    "l__j__jl_____j \__,_jl__j\_jl_____j\n");*/
 
 var devEnvironment: Boolean = secret["devEnvironment"];
 

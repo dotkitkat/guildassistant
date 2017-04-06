@@ -11,18 +11,17 @@ import commando = require('discord.js-commando');
 
 // Azure bot shard - do not directly reference - created multiple times for sharding.
 
-const client: commando.CommandoClient = new commando.CommandoClient({
+var opt: commando.CommandoClientOptions = {
     disableEveryone: true,
     commandPrefix: '~',
     commandEditableDuration: 0,
     nonCommandEditable: false,
-    unknownCommandResponse: false,
-    owner: secret["ownerId"],
-    disabledEvents: [
-        "TYPING_START"
-    ]
-    // invite: <bot server link if global>
-});
+    unknownCommandResponse: true,
+    owner: secret['ownerId'],
+    disabledEvents: [ 'TYPING_START' ]
+}
+
+const client: commando.CommandoClient = new commando.CommandoClient(opt);
 
 if (!secret['devEnvironment']) {
     process.send({
@@ -38,7 +37,7 @@ const commandGroups: string[][] = [
     ['shards', 'Sharding'],
     ['music', 'Music'],
     ['fun', 'Fun'],
-    ['admin', 'Admin']
+    ['joinableroles', 'Joinable Roles']
 ];
 
 // Register commands
@@ -49,6 +48,16 @@ client.registry
 
 // Configure events
 // No custom events (yet)
+
+// Configure db
+client.setProvider(
+    sqlite.open(path.join(__dirname, 'azure.sqlite3')).then(db => new commando.SQLiteProvider(db))
+).catch(function (err) {
+    logger.shardError(err, function () {
+        if (secret["devEnvironment"]) return undefined;
+        else return client.shard.id;
+    });
+});
 
 // Configure shard API (if not in a development environment)
 var token;

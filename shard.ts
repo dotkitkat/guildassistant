@@ -16,7 +16,7 @@ var opt: commando.CommandoClientOptions = {
     commandPrefix: '~',
     commandEditableDuration: 0,
     nonCommandEditable: false,
-    unknownCommandResponse: true,
+    unknownCommandResponse: false,
     owner: secret['ownerId'],
     disabledEvents: [ 'TYPING_START' ]
 }

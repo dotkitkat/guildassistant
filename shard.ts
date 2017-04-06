@@ -114,7 +114,7 @@ if (!secret['devEnvironment']) {
     token = process.argv[4];
     finalCallback = function () {
         setInterval(function () {
-            client.user.setGame(`[Shard ${client.shard.id + 1}/${client.shard.count}`).catch(function () { });
+            client.user.setGame(`[Shard ${client.shard.id + 1}/${client.shard.count}]`).catch(function () { });
         }, 10000);
         serv.listen(secret.shardServersBasePort + client.shard.id, function () {
             process.send({
@@ -123,6 +123,7 @@ if (!secret['devEnvironment']) {
                     "PORT": secret.shardServersBasePort + client.shard.id
                 }
             });
+            logger.shardLog("Online. API listening on " + (secret.shardServersBasePort + client.shard.id), client.shard.id);
         });
     }
 }

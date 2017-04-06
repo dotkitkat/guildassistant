@@ -72,9 +72,9 @@ if (!devEnvironment) {
     });
 
     messageRecieving(sharder, function (sender: Shard, message) {
-        if (message.EVENT === "CONNECTION_SUCCESS") {
+        /*if (message.EVENT === "CONNECTION_SUCCESS") {
             logger.shardLog("Online. API listening on " + message.DATA.PORT, sender.id)
-        }
+        }*/
         /*
          All current events:
          Event Title | Data Sent: Data Type

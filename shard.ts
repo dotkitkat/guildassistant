@@ -32,7 +32,7 @@ if (!secret['devEnvironment']) {
 // Command groups   
 const commandGroups: string[][] = [
     ['info', 'Information'],
-    ['kud', 'Kindly United Dreams'],
+    ['guild', 'Guild'],
     ['web', 'Internet'],
     ['shards', 'Sharding'],
     ['music', 'Music'],

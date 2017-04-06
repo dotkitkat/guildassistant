@@ -12,4 +12,4 @@ echo "Moving to build folder.."
 cd build
 echo "Done."
 echo "Running Azure.."
-node --harmony index.js
+sudo node --harmony index.js

@@ -63,68 +63,12 @@ client.setProvider(
 var token;
 var finalCallback;
 if (!secret['devEnvironment']) {
-    var serv = express();
-    serv.use(bodyParser.json());
-    serv.use(bodyParser.urlencoded({
-        extended: true
-    }));
-
-    serv.post('/set-game', function (req, res) {
-        client.user.setGame(req.body.game).then(function () {
-            res.send({
-                "game": client.user.presence.game.name
-            })
-        });
-    });
-
-    serv.post('/set-username', function (req, res) {
-        client.user.setUsername(req.body.username).then(function () {
-            res.send({ "username": client.user.username });
-        });
-    });
-
-    serv.get('/info', function (req, res) {
-        let info = {
-            "user": client.user,
-            "avatarURL": client.user.avatarURL,
-            "shard": {
-                "shard_id": client.shard.id
-            }
-        };
-        res.send(info)
-    });
-
-    serv.get('/private-info', function (req, res) {
-        if (req.headers["auth"] != secret.authToken) {
-            res.send({
-                "error": "invalid_authentication"
-            });
-        }
-        else {
-            res.send({
-                "auth": "success",
-                "authentication_token": secret.authToken,
-                "owner_id": secret.ownerId,
-                "anilist_api_id": secret.anilistApiId,
-                "anilist_api_secret": secret.anilistApiSecret
-            });
-        }
-    });
-
     token = process.argv[4];
     finalCallback = function () {
         setInterval(function () {
             client.user.setGame(`[Shard ${client.shard.id + 1}/${client.shard.count}]`).catch(function () { });
         }, 10000);
-        serv.listen(secret.shardServersBasePort + client.shard.id, function () {
-            process.send({
-                "EVENT": "CONNECTION_SUCCESS",
-                "DATA": {
-                    "PORT": secret.shardServersBasePort + client.shard.id
-                }
-            });
-            logger.shardLog("Online. API listening on " + (secret.shardServersBasePort + client.shard.id), client.shard.id);
-        });
+        logger.shardLog("Online. API listening on " + (secret.shardServersBasePort + client.shard.id), client.shard.id);
     }
 }
 else {

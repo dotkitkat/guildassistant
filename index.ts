@@ -40,28 +40,6 @@ if (!devEnvironment) {
         })
     }
 
-    let master = express();
-    master.get('/shards', function (req, res) {
-        var shards = {
-            "global": {
-                "shard_count": sharder.totalShards,
-                "shards_online": sharder.shards.size
-            },
-            "allShards": []
-        };
-        sharder.shards.array().forEach(function (item: discord.Shard, index) {
-            shards["allShards"].push({
-                "id": item.id,
-                "connection_port": secret.shardServersBasePort + item.id
-            });
-        });
-        return res.send(shards);
-    });
-
-    // the only reason the log is outside of the callback is so that is shows before the launching message for the first shard
-    logger.shardManagerLog("Global API now listening on port " + secret.masterServerPort + ".");
-    master.listen(secret.masterServerPort);
-
     sharder.on('launch', shard => logger.shardManagerLog(`Launching shard ${shard.id}. ${(sharder.totalShards - sharder.shards.size) == 0 ? "All shards launched." : `Total shards launched: ${sharder.shards.size}. Shards remaining: ${sharder.totalShards - sharder.shards.size}`}`));
 
     var totalShardsKeymetrics = keymetrics.metric({

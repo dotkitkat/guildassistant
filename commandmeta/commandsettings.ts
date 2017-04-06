@@ -1,5 +1,5 @@
 
 export default class CustomSettings {
-    shardOnly?: boolean;
-    ownerOnly?: boolean;
+    shardOnly?: boolean = false;
+    ownerOnly?: boolean = false;
 }

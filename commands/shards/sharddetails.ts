@@ -23,7 +23,7 @@ module.exports = class ShardDetailsCommand extends CustomCommand {
         });
     }
 
-    async run(message, args) {
+    async run(message: CommandMessage, args) {
         var client = this.client;
         var embed: RichEmbed = new RichEmbed();
         var newsv = args.targetShard - 1;

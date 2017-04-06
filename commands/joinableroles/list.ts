@@ -4,9 +4,9 @@ import discord = require('discord.js');
 module.exports = class JoinRoleCommand extends commando.Command {
     constructor(client: commando.CommandoClient) {
         super(client, {
-            name: 'list',
+            name: 'listroles',
             group: 'joinableroles',
-            memberName: 'list',
+            memberName: 'listroles',
             description: 'Lists all joinable roles.',
 
             guildOnly: true

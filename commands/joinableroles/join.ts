@@ -3,9 +3,9 @@ import commando = require('discord.js-commando');
 module.exports = class JoinRoleCommand extends commando.Command {
     constructor(client: commando.CommandoClient) {
         super(client, {
-            name: 'join',
+            name: 'joinrole',
             group: 'joinableroles',
-            memberName: 'join',
+            memberName: 'joinrole',
             description: 'Join a joinable role.',
             args: [
                 {

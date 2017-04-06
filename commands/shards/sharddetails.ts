@@ -1,7 +1,9 @@
 import {Collection, Guild, RichEmbed, Shard, ShardingManager, VoiceConnection, Message} from "discord.js";
 import {Command, CommandMessage, CommandoClient} from "discord.js-commando";
+import restrictions from '../../commandmeta/restrictions.js';
+import CustomCommand from '../../commandmeta/customcommand.js';
 
-module.exports = class ShardDetailsCommand extends Command {
+module.exports = class ShardDetailsCommand extends CustomCommand {
     constructor(client: CommandoClient) {
         super(client, {
             name: 'sharddetails',
@@ -15,21 +17,13 @@ module.exports = class ShardDetailsCommand extends Command {
                     prompt: 'what shard number would you like information for?'
                 }
             ]
-        })
-    }
-
-    isUsable(message: Message): boolean {
-        return !(this.client.shard === null);
-    }
-
-    hasPermission(message: CommandMessage): boolean {
-        return this.client.isOwner(message.author);
+        }, {
+            shardOnly: true,
+            ownerOnly: true
+        });
     }
 
     async run(message, args) {
-        if (this.client.shard === null) {
-            return message.reply("this client is running in development mode, so sharding is disabled.");
-        }
         var client = this.client;
         var embed: RichEmbed = new RichEmbed();
         var newsv = args.targetShard - 1;

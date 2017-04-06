@@ -1,20 +1,21 @@
 import {Guild, RichEmbed, Shard, ShardClientUtil, ShardingManager} from "discord.js";
 import {Command, CommandMessage, CommandoClient} from "discord.js-commando";
 const logger = require('../../shardLogger.js');
+import restrictions from '../../commandmeta/restrictions.js';
+import CustomCommand from '../../commandmeta/customcommand.js';
 
-module.exports = class ShardsCommand extends Command {
+module.exports = class ShardsCommand extends CustomCommand {
     constructor(client: CommandoClient) {
         super(client, {
             name: 'shards',
             memberName: 'shards',
             description: 'Gets all available shards.',
             group: 'shards'
+        }, {
+            ownerOnly: true,
+            shardOnly: true
         });
     };
-
-    hasPermission(message: CommandMessage): boolean {
-        return this.client.isOwner(message.author);
-    }
 
     async run(message, args): Promise<any> {
         if (this.client.shard === null) {

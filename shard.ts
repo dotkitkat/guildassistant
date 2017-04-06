@@ -72,7 +72,6 @@ if (!secret['devEnvironment']) {
     }
 }
 else {
-    var serv = undefined;
     token = secret.authToken;
     finalCallback = function () {
         logger.shardLog("Online.", undefined);

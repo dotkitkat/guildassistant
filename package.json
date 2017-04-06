@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "git pull && sudo tsc -p . && cd build && sudo node --harmony index.js"
+    "start": "sudo git pull && sudo tsc -p . && cd build && sudo node --harmony index.js"
   },
   "repository": {
     "type": "git",

@@ -19,10 +19,6 @@ module.exports = class JoinRoleCommand extends commando.Command {
         })
     }
 
-    hasPermission(message: commando.CommandMessage) {
-        return message.author.id === message.guild.ownerID;
-    }
-
     async run (message: commando.CommandMessage, args) {
         var joinableRoles: string[] = this.client.provider.get(message.guild, 'joinableRoles', null)
         if ([null, undefined].includes(joinableRoles)) {

@@ -68,6 +68,7 @@ if (!secret['devEnvironment']) {
         setInterval(function () {
             client.user.setGame(`[Shard ${client.shard.id + 1}/${client.shard.count}]`).catch(function () { });
         }, 10000);
+        logger.shardLog("Online.", client.shard.id);
     }
 }
 else {

@@ -1,4 +1,5 @@
 echo "Building Azure..."
+killall nodejs
 echo "Updating Azure..."
 sudo git pull
 echo "Done."

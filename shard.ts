@@ -33,10 +33,8 @@ if (!secret['devEnvironment']) {
 const commandGroups: string[][] = [
     ['info', 'Information'],
     ['guild', 'Guild'],
-    ['web', 'Internet'],
     ['shards', 'Sharding'],
     ['music', 'Music'],
-    ['fun', 'Fun'],
     ['joinableroles', 'Joinable Roles']
 ];
 

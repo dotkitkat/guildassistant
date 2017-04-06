@@ -5,7 +5,7 @@ module.exports = class AnnounceCommand extends commando.Command {
     constructor(client: commando.CommandoClient) {
         super(client, {
             name: 'announce',
-            group: 'kud',
+            group: 'guild',
             memberName: 'announce',
             description: 'Creates an annoucement'
         })

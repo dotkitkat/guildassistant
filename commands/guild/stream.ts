@@ -8,7 +8,7 @@ module.exports = class StreamCreateCommand extends commando.Command {
         super(client, {
             name: 'stream',
             memberName: 'stream',
-            group: 'kud',
+            group: 'guild',
             description: 'Creates a movie/anime stream event.',
             args: [
                 {

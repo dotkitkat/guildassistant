@@ -27,7 +27,7 @@ module.exports = class JoinRoleCommand extends commando.Command {
         else {
             if (joinableRoles.includes(args.targetRole.id)) {
                 message.member.addRole(args.targetRole).then(function () {
-                    return message.reply("successfullly joined `" + args.targetRole.name + "`!");
+                    return message.reply("successfully joined `" + args.targetRole.name + "`!");
                     }).catch(function (reason) {
                     return message.reply("failed to join `" + args.targetRole.name + "!` :anger:");
                 })

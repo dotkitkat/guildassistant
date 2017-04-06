@@ -13,7 +13,7 @@ config.json
 .sqlite3
 
 # IDEs
-.vscode/
+#.vscode/ - task files
 .idea/
 
 # macOS problems

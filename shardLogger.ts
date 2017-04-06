@@ -6,6 +6,9 @@ module.exports = class shardLogger {
         else if (shardId === null && require('./config.json')["devEnvironment"]) {
             console.log(`[Client] ${toLog}`)
         }
+        else {
+            console.log(`[Shard ${shardId}] ${toLog}`);
+        }
     }
 
     static shardError(toLog: string, shardId?: number) {

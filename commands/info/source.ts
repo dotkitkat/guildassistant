@@ -6,11 +6,11 @@ module.exports = class SourceCommand extends commando.Command {
             name: 'source',
             group: 'info',
             memberName: 'source',
-            description: 'Gets a source code link for Azure.'
+            description: 'Gets a source code link for GuildAssistant.'
         })
     }
 
     async run(message, args) {
-        return message.reply("view the source code here: https://github.com/kitkatdesu/azure")
+        return message.reply("view the source code here: https://github.com/kitkatdesu/guildassistant")
     }
 }

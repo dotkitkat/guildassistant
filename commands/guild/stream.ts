@@ -35,17 +35,18 @@ module.exports = class StreamCreateCommand extends commando.Command {
                     key: 'movieStartTime',
                     prompt: 'how many minutes until the stream starts?',
                     type: 'integer'
+                },
+                {
+                    key: 'targetChannel',
+                    prompt: 'what channel would you like to send it to? (after confirmation)',
+                    type: 'channel'
                 }
-            ]
+            ],
+            guildOnly: true,
         });
     }
 
-    hasPermission(message: commando.CommandMessage) {
-        return (message.guild.channels.get("258570586899480586")).permissionsFor(message.member).hasPermission('SEND_MESSAGES');
-    }
-
     async run(message: commando.CommandMessage, args): Promise<any> {
-        // https://anilist.co/anime/20958/ShingekinoKyojin2
         var cli: commando.CommandoClient = this.client;
         let desc = "Stream starts in " + args.movieStartTime + " minutes.";
         let argsrc = args.streamSource.replace("https://anilist.co/", "").split("/");
@@ -61,7 +62,7 @@ module.exports = class StreamCreateCommand extends commando.Command {
             embed.addField("Coordinator", args.streamLeader, true);
             embed.addField("Genres", response.genres.slice(0, 2).join(", "), true);
             embed.addField("Source", args.streamSource, true);
-            embed.setFooter("Stream details compiled by Azure", cli.user.avatarURL);
+            embed.setFooter("Stream details compiled by GuildAssistant", cli.user.avatarURL);
             embed.setColor("blue");
             message.channel.sendEmbed(embed);
             message.reply("is the above embed OK? Type `yes` to send it to the announcements channel, and anything else to cancel.")
@@ -72,7 +73,17 @@ module.exports = class StreamCreateCommand extends commando.Command {
             }).then(function (rep: discord.Collection<string, discord.Message>) {
                 if (rep.first().content.startsWith("yes")) {
                     message.reply("sending...");
-                    return (message.guild.channels.get("258570586899480586") as discord.TextChannel).sendEmbed(embed);
+                    var a: discord.TextChannel = args.targetChannel as discord.TextChannel;
+                    if (a.permissionsFor(message.author).hasPermission('SEND_MESSAGES') && a.permissionsFor(cli.user).hasPermission('SEND_MESSAGES')) {
+                        a.sendEmbed(embed);
+                        return message.reply("sent!");
+                    }
+                    else if (!a.permissionsFor(message.author).hasPermission('SEND_MESSAGES')){
+                        return message.reply("you don't have permissions to send to #" + a.name + "! :anger:")
+                    }
+                    else {
+                        return message.reply("I don't have permissions to send to #" + a.name + "! :anger:");
+                    }
                 }
                 else {
                     message.reply("cancelled.");
@@ -88,7 +99,32 @@ module.exports = class StreamCreateCommand extends commando.Command {
             embed.addField("Source", args.streamSource, true);
             embed.addField("Starts in", args.movieStartTime + " minutes", true);
             embed.addField("Stream Link", args.rabbitLink, true)
-            return message.channel.sendEmbed(embed);
+            message.channel.sendEmbed(embed);
+            message.reply("is the above embed OK? Type `yes` to send it to the announcements channel, and anything else to cancel.")
+            message.channel.awaitMessages(x => x.author.id === message.author.id, {
+                time: 30000,
+                max: 1,
+                errors: [ 'time' ]
+            }).then(function (rep: discord.Collection<string, discord.Message>) {
+                if (rep.first().content.startsWith("yes")) {
+                    message.reply("sending...");
+                    var a: discord.TextChannel = args.targetChannel as discord.TextChannel;
+                    if (a.permissionsFor(message.author).hasPermission('SEND_MESSAGES') && a.permissionsFor(cli.user).hasPermission('SEND_MESSAGES')) {
+                        return a.sendEmbed(embed);
+                    }
+                    else if (!a.permissionsFor(message.author).hasPermission('SEND_MESSAGES')){
+                        return message.reply("you don't have permissions to send to #" + a.name + "! :anger:")
+                    }
+                    else {
+                        return message.reply("I don't have permissions to send to #" + a.name + "! :anger:");
+                    }
+                }
+                else {
+                    message.reply("cancelled.");
+                }
+            }).catch(function (err) {
+                return message.reply("cancelled.")
+            })
         });
     }
 };

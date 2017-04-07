@@ -110,7 +110,9 @@ module.exports = class StreamCreateCommand extends commando.Command {
                     message.reply("sending...");
                     var a: discord.TextChannel = args.targetChannel as discord.TextChannel;
                     if (a.permissionsFor(message.author).hasPermission('SEND_MESSAGES') && a.permissionsFor(cli.user).hasPermission('SEND_MESSAGES')) {
-                        return a.sendEmbed(embed);
+                        a.sendEmbed(embed).then(function () {
+                            return message.reply("sent!");
+                        })
                     }
                     else if (!a.permissionsFor(message.author).hasPermission('SEND_MESSAGES')){
                         return message.reply("you don't have permissions to send to #" + a.name + "! :anger:")

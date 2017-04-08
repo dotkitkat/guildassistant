@@ -10,10 +10,6 @@ module.exports = class AnnounceCommand extends commando.Command {
             description: 'Creates an annoucement'
         })
     }
-
-    hasPermission(message: commando.CommandMessage) {
-        return true; /*(message.guild.channels.get(dbhelper._getAnnouncementsChannelId)).permissionsFor(message.member).hasPermission('SEND_MESSAGES');*/
-    }
     
     async run(message: commando.CommandMessage, arg) {
         var emb: discord.RichEmbed = new discord.RichEmbed();

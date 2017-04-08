@@ -56,7 +56,12 @@ module.exports = class StreamCreateCommand extends commando.Command {
             embed.setTitle("Streaming: " + response.title_romaji);
             embed.setDescription(desc);
             embed.addField("Starts in", args.movieStartTime + " minutes", true);
-            embed.addField("Total Episodes", response.total_episodes, true);
+            if (response.type == "Movie") {
+                embed.addField("Duration", response.duration + " minutes", true);
+            }
+            else {
+                embed.addField("Total Episodes", response.total_episodes, true);
+            }
             embed.addField("Stream Link", args.rabbitLink, true);
             embed.addField("Average Rating", response.average_score / 10, true);
             embed.addField("Coordinator", args.streamLeader, true);

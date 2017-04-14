@@ -38,7 +38,7 @@ module.exports = class UserInfoCommand extends commando.Command {
         if (target.highestRole != null) {
             emb.addField("Highest Role", target.highestRole.name, true);
         }
-        if (target.presence.game.name != null) {
+        if (target.presence.game != null) {
             emb.addField("Game", "Playing " + target.presence.game.name, true);
         }
         emb.setThumbnail(target.user.avatarURL);

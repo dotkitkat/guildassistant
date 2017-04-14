@@ -35,7 +35,7 @@ module.exports = class UserInfoCommand extends commando.Command {
         }
         emb.addField("Roles", roles.join(", "), true);
         emb.addField("Join Date", target.joinedAt.toDateString(), true);
-        if (target.highestRole.name != null) {
+        if (target.highestRole != null) {
             emb.addField("Highest Role", target.highestRole.name, true);
         }
         if (target.presence.game.name != null) {
